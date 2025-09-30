@@ -1,0 +1,145 @@
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VML Brief Form</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    .form-container { background: white; padding: 20px; max-width: 800px; margin: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { text-align: center; margin-bottom: 30px; font-size: 28px; color: #007BFF; }
+    .form-group { margin-bottom: 15px; }
+    label { font-weight: bold; display: block; margin-bottom: 5px; }
+    input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>VML Brief Form</h1>
+    <form id="creativeForm">
+        <div class="form-group">
+            <label>Marka *</label>
+            <select name="Marka" required>
+                <option value="">Seçiniz</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="Diğer">(Diğer)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Ürün / Hizmet / Sponsorluk *</label>
+            <input type="text" name="Ürün" required>
+        </div>
+
+        <div class="form-group">
+            <label>Yaş Grubu *</label>
+            <select name="Yaş Grubu" required>
+                <option value="">Seçiniz</option>
+                <option>Tüm Kişiler</option><option>0-14</option><option>+15</option>
+                <option>15-17</option><option>18-24</option><option>25-34</option>
+                <option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Hedef Kitle Tanımı *</label>
+            <textarea name="Hedef Kitle Tanımı" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>İlgi Alanı *</label>
+            <textarea name="İlgi Alanı" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Kampanya Türü 1 *</label>
+            <select name="Kampanya Türü 1" required>
+                <option value="">Seçiniz</option>
+                <option>Satış</option><option>İmaj</option><option>Satış & İmaj</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Kampanya Türü 2 *</label>
+            <select name="Kampanya Türü 2" required>
+                <option value="">Seçiniz</option>
+                <option>Lansman</option><option>Re-lansman</option><option>Sosyal Sorumluluk</option>
+                <option>Sezonsal - Özel Gün</option><option>Fiyat - Promosyon</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>İş Problemi *</label>
+            <textarea name="İş Problemi" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Marka Amacı *</label>
+            <textarea name="Marka Amacı" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Ana Fayda (RTB) *</label>
+            <textarea name="Ana Fayda (RTB)" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Dikkat Noktası / Fırsatlar / Bariyerler *</label>
+            <textarea name="Dikkat Noktası" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>İletişim Dönemi *</label>
+            <input type="text" name="İletişim Dönemi" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rakip İletişim *</label>
+            <textarea name="Rakip İletişim" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Kampanya Kapsamı *</label>
+            <select name="Kampanya Kapsamı" required>
+                <option value="">Seçiniz</option>
+                <option>Geleneksel (TVC & 360)</option><option>Dijital</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Beklenen Materyaller *</label>
+            <select name="Beklenen Materyaller" multiple required>
+                <option>TVC</option><option>KV</option><option>OOH</option><option>Jingle</option>
+                <option>Social Media Post</option><option>Online Video</option><option>Influencer</option>
+                <option>Radyo</option><option>Banner</option><option>Podcast</option>
+            </select>
+        </div>
+
+        <button type="submit">Gönder</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('creativeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(this).entries());
+
+    // Çoklu seçimleri diziye çevir
+    if (formData["Beklenen Materyaller"]) {
+        formData["Beklenen Materyaller"] = Array.isArray(formData["Beklenen Materyaller"]) ? formData["Beklenen Materyaller"] : [formData["Beklenen Materyaller"]];
+    }
+
+    // Chat penceresine gönder
+    if (window.opener) {
+        window.opener.postMessage({ type: 'formData', payload: formData }, '*');
+    } else {
+        alert("Form verileri:\n" + JSON.stringify(formData, null, 2));
+    }
+
+    this.reset();
+});
+</script>
+
+</body>
+</html>
