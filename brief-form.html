@@ -9,28 +9,10 @@
     h1 { text-align: center; margin-bottom: 30px; font-size: 28px; color: #007BFF; }
     .form-group { margin-bottom: 15px; position: relative; }
     label { font-weight: bold; display: block; margin-bottom: 5px; }
-    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-    .dropdown-box { border: 1px solid #ccc; border-radius: 4px; padding: 8px; background: #fff; cursor: pointer; }
-    .dropdown-options { display: none; border: 1px solid #ccc; border-radius: 4px; background: white; margin-top: 5px; max-height: 150px; overflow-y: auto; position: absolute; width: 100%; z-index: 100; }
-    .dropdown-options div { padding: 8px; cursor: pointer; }
-    .dropdown-options div:hover { background: #f0f0f0; }
-    .selected-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
-    .tag { background: #007BFF; color: white; padding: 5px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
-    .tag span { cursor: pointer; font-weight: bold; }
-    button[type="submit"] {
-        background: #007BFF;
-        color: white;
-        padding: 15px 25px;
-        font-size: 18px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        width: 100%;
-        margin-top: 20px;
-    }
-    button[type="submit"]:hover {
-        background: #0056b3;
-    }
+    input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    button { background: #007BFF; color: white; padding: 15px 25px; font-size: 18px; border: none; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 20px; }
+    button:hover { background: #0056b3; }
+    .info-message { margin-top: 20px; padding: 15px; background: #e9f7ef; border: 1px solid #28a745; color: #155724; border-radius: 6px; }
 </style>
 </head>
 <body>
@@ -39,15 +21,14 @@
     <h1>VML Brief Form</h1>
     <form id="creativeForm">
 
-        <!-- Marka (ilk hali: dropdown-box + tek seçim) -->
+        <!-- Marka -->
         <div class="form-group">
             <label>Marka</label>
-            <div class="dropdown-box single-choice" data-name="Marka">Seçiniz</div>
-            <div class="dropdown-options">
-                <div>Vodafone</div>
-                <div>(Diğer)</div>
-            </div>
-            <div class="selected-tags"></div>
+            <select name="Marka">
+                <option value="">Seçiniz</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="Diğer">(Diğer)</option>
+            </select>
         </div>
 
         <!-- Ürün -->
@@ -59,11 +40,12 @@
         <!-- Yaş Grubu -->
         <div class="form-group">
             <label>Yaş Grubu</label>
-            <div class="dropdown-box" data-name="Yaş Grubu">Seçiniz</div>
-            <div class="dropdown-options">
-                <div>Tüm Kişiler</div><div>0-14</div><div>+15</div><div>15-17</div><div>18-24</div><div>25-34</div><div>35-44</div><div>45-54</div><div>55-64</div><div>65+</div>
-            </div>
-            <div class="selected-tags"></div>
+            <select name="Yaş Grubu">
+                <option value="">Seçiniz</option>
+                <option>Tüm Kişiler</option><option>0-14</option><option>+15</option>
+                <option>15-17</option><option>18-24</option><option>25-34</option>
+                <option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option>
+            </select>
         </div>
 
         <!-- Hedef Kitle Tanımı -->
@@ -81,17 +63,44 @@
         <!-- Kampanya Türü 1 -->
         <div class="form-group">
             <label>Kampanya Türü 1</label>
-            <div class="dropdown-box" data-name="Kampanya Türü 1">Seçiniz</div>
-            <div class="dropdown-options"><div>Satış</div><div>İmaj</div><div>Satış & İmaj</div></div>
-            <div class="selected-tags"></div>
+            <select name="Kampanya Türü 1">
+                <option value="">Seçiniz</option>
+                <option>Satış</option><option>İmaj</option><option>Satış & İmaj</option>
+            </select>
         </div>
 
         <!-- Kampanya Türü 2 -->
         <div class="form-group">
             <label>Kampanya Türü 2</label>
-            <div class="dropdown-box" data-name="Kampanya Türü 2">Seçiniz</div>
-            <div class="dropdown-options"><div>Lansman</div><div>Re-lansman</div><div>Sosyal Sorumluluk</div><div>Sezonsal - Özel Gün</div><div>Fiyat - Promosyon</div></div>
-            <div class="selected-tags"></div>
+            <select name="Kampanya Türü 2">
+                <option value="">Seçiniz</option>
+                <option>Lansman</option><option>Re-lansman</option><option>Sosyal Sorumluluk</option>
+                <option>Sezonsal - Özel Gün</option><option>Fiyat - Promosyon</option>
+            </select>
+        </div>
+
+        <!-- İş Problemi -->
+        <div class="form-group">
+            <label>İş Problemi</label>
+            <textarea name="İş Problemi" rows="3"></textarea>
+        </div>
+
+        <!-- Marka Amacı -->
+        <div class="form-group">
+            <label>Marka Amacı</label>
+            <textarea name="Marka Amacı" rows="3"></textarea>
+        </div>
+
+        <!-- Ana Fayda (RTB) -->
+        <div class="form-group">
+            <label>Ana Fayda (RTB)</label>
+            <textarea name="Ana Fayda (RTB)" rows="3"></textarea>
+        </div>
+
+        <!-- Dikkat Noktası / Fırsatlar / Bariyerler -->
+        <div class="form-group">
+            <label>Dikkat Noktası / Fırsatlar / Bariyerler</label>
+            <textarea name="Dikkat Noktası" rows="3"></textarea>
         </div>
 
         <!-- İletişim Dönemi -->
@@ -109,99 +118,47 @@
         <!-- Kampanya Kapsamı -->
         <div class="form-group">
             <label>Kampanya Kapsamı</label>
-            <div class="dropdown-box" data-name="Kampanya Kapsamı">Seçiniz</div>
-            <div class="dropdown-options"><div>Geleneksel (TVC & 360)</div><div>Dijital</div></div>
-            <div class="selected-tags"></div>
+            <select name="Kampanya Kapsamı">
+                <option value="">Seçiniz</option>
+                <option>Geleneksel (TVC & 360)</option><option>Dijital</option>
+            </select>
         </div>
 
         <!-- Beklenen Materyaller -->
         <div class="form-group">
             <label>Beklenen Materyaller</label>
-            <div class="dropdown-box" data-name="Beklenen Materyaller">Seçiniz</div>
-            <div class="dropdown-options"><div>TVC</div><div>KV</div><div>OOH</div><div>Jingle</div><div>Social Media Post</div><div>Online Video</div><div>Influencer</div><div>Radyo</div><div>Banner</div><div>Podcast</div></div>
-            <div class="selected-tags"></div>
+            <select name="Beklenen Materyaller" multiple>
+                <option>TVC</option><option>KV</option><option>OOH</option><option>Jingle</option>
+                <option>Social Media Post</option><option>Online Video</option><option>Influencer</option>
+                <option>Radyo</option><option>Banner</option><option>Podcast</option>
+            </select>
         </div>
 
         <button type="submit">Gönder</button>
     </form>
+
+    <div id="infoMessage" class="info-message" style="display:none;">
+        Form gönderildi ✅ Bu sayfayı kapatabilirsiniz ve brief oluşturma sayfasına geri dönebilirsiniz.
+    </div>
 </div>
 
 <script>
-// Dropdown açma/kapama
-document.querySelectorAll('.dropdown-box').forEach(box => {
-    const options = box.nextElementSibling;
-    box.addEventListener('click', () => {
-        options.style.display = 'block';
-    });
-    options.addEventListener('mouseleave', () => {
-        options.style.display = 'none';
-    });
-});
-
-// Çoklu ve tek seçim
-document.querySelectorAll('.dropdown-options div').forEach(option => {
-    option.addEventListener('click', () => {
-        const box = option.parentElement.previousElementSibling;
-        const tagsContainer = option.parentElement.nextElementSibling;
-        const value = option.textContent;
-
-        if (box.classList.contains('single-choice')) {
-            tagsContainer.innerHTML = '';
-            option.parentElement.querySelectorAll('div').forEach(opt => opt.style.background = '');
-            const tag = document.createElement('div');
-            tag.className = 'tag';
-            tag.dataset.value = value;
-            tag.innerHTML = `${value} <span>&times;</span>`;
-            tag.querySelector('span').addEventListener('click', () => {
-                tag.remove();
-                option.style.background = '';
-            });
-            tagsContainer.appendChild(tag);
-            option.style.background = '#d0f0d0';
-        } else {
-            const existingTag = [...tagsContainer.querySelectorAll('.tag')].find(tag => tag.dataset.value === value);
-            if (existingTag) {
-                existingTag.remove();
-                option.style.background = '';
-            } else {
-                const tag = document.createElement('div');
-                tag.className = 'tag';
-                tag.dataset.value = value;
-                tag.innerHTML = `${value} <span>&times;</span>`;
-                tag.querySelector('span').addEventListener('click', () => {
-                    tag.remove();
-                    option.style.background = '';
-                });
-                tagsContainer.appendChild(tag);
-                option.style.background = '#d0f0d0';
-            }
-        }
-    });
-});
-
-// Form gönderme
 document.getElementById('creativeForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const data = {};
+    const data = Object.fromEntries(new FormData(this).entries());
 
-    this.querySelectorAll('input, textarea').forEach(el => {
-        data[el.name] = el.value;
-    });
-
-    this.querySelectorAll('.dropdown-box').forEach(box => {
-        const name = box.dataset.name;
-        const tags = [...box.parentElement.querySelectorAll('.tag')].map(tag => tag.dataset.value);
-        data[name] = tags;
-    });
-
+    // Verileri chat'e gönder
     if (window.opener) {
         window.opener.postMessage({ type: 'formData', payload: data }, '*');
     } else {
         alert("Form verileri:\n" + JSON.stringify(data, null, 2));
     }
 
+    // Mesajı göster
+    document.getElementById('infoMessage').style.display = 'block';
+
+    // Formu temizle
     this.reset();
-    window.close();
 });
 </script>
 
