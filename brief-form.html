@@ -12,7 +12,7 @@
     input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
     button { background: #007BFF; color: white; padding: 15px 25px; font-size: 18px; border: none; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 20px; }
     button:hover { background: #0056b3; }
-    .info-message { margin-top: 20px; padding: 15px; background: #e9f7ef; border: 1px solid #28a745; color: #155724; border-radius: 6px; }
+    .info-message { margin-top: 20px; padding: 15px; background: #e9f7ef; border: 1px solid #28a745; color: #155724; border-radius: 6px; display:none; }
 </style>
 </head>
 <body>
@@ -82,25 +82,25 @@
         <!-- İş Problemi -->
         <div class="form-group">
             <label>İş Problemi</label>
-            <textarea name="İş Problemi" rows="3"></textarea>
+            <textarea name="İş Problemi" rows="3" placeholder="İş problemini açıklayın"></textarea>
         </div>
 
         <!-- Marka Amacı -->
         <div class="form-group">
             <label>Marka Amacı</label>
-            <textarea name="Marka Amacı" rows="3"></textarea>
+            <textarea name="Marka Amacı" rows="3" placeholder="Marka amacını açıklayın"></textarea>
         </div>
 
         <!-- Ana Fayda (RTB) -->
         <div class="form-group">
             <label>Ana Fayda (RTB)</label>
-            <textarea name="Ana Fayda (RTB)" rows="3"></textarea>
+            <textarea name="Ana Fayda (RTB)" rows="3" placeholder="Ana faydayı açıklayın"></textarea>
         </div>
 
         <!-- Dikkat Noktası / Fırsatlar / Bariyerler -->
         <div class="form-group">
             <label>Dikkat Noktası / Fırsatlar / Bariyerler</label>
-            <textarea name="Dikkat Noktası" rows="3"></textarea>
+            <textarea name="Dikkat Noktası" rows="3" placeholder="Dikkat noktalarını açıklayın"></textarea>
         </div>
 
         <!-- İletişim Dönemi -->
@@ -137,7 +137,7 @@
         <button type="submit">Gönder</button>
     </form>
 
-    <div id="infoMessage" class="info-message" style="display:none;">
+    <div id="infoMessage" class="info-message">
         Form gönderildi ✅ Bu sayfayı kapatabilirsiniz ve brief oluşturma sayfasına geri dönebilirsiniz.
     </div>
 </div>
@@ -154,7 +154,7 @@ document.getElementById('creativeForm').addEventListener('submit', function(e) {
         alert("Form verileri:\n" + JSON.stringify(data, null, 2));
     }
 
-    // Mesajı göster
+    // Bilgi mesajını göster
     document.getElementById('infoMessage').style.display = 'block';
 
     // Formu temizle
