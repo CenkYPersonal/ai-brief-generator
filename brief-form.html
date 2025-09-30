@@ -17,6 +17,20 @@
     .selected-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
     .tag { background: #007BFF; color: white; padding: 5px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
     .tag span { cursor: pointer; font-weight: bold; }
+    button[type="submit"] {
+        background: #007BFF;
+        color: white;
+        padding: 15px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+    }
+    button[type="submit"]:hover {
+        background: #0056b3;
+    }
 </style>
 </head>
 <body>
@@ -25,14 +39,15 @@
     <h1>VML Brief Form</h1>
     <form id="creativeForm">
 
-        <!-- Marka (tek seçim) -->
+        <!-- Marka (ilk hali: dropdown-box + tek seçim) -->
         <div class="form-group">
             <label>Marka</label>
-            <select name="Marka">
-                <option value="">Seçiniz</option>
-                <option value="Vodafone">Vodafone</option>
-                <option value="Diğer">(Diğer)</option>
-            </select>
+            <div class="dropdown-box single-choice" data-name="Marka">Seçiniz</div>
+            <div class="dropdown-options">
+                <div>Vodafone</div>
+                <div>(Diğer)</div>
+            </div>
+            <div class="selected-tags"></div>
         </div>
 
         <!-- Ürün -->
@@ -41,7 +56,7 @@
             <input type="text" name="Ürün" placeholder="Belirtiniz">
         </div>
 
-        <!-- Yaş Grubu (çoklu seçim) -->
+        <!-- Yaş Grubu -->
         <div class="form-group">
             <label>Yaş Grubu</label>
             <div class="dropdown-box" data-name="Yaş Grubu">Seçiniz</div>
@@ -112,23 +127,27 @@
 </div>
 
 <script>
+// Dropdown açma/kapama
 document.querySelectorAll('.dropdown-box').forEach(box => {
+    const options = box.nextElementSibling;
     box.addEventListener('click', () => {
-        const options = box.nextElementSibling;
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        options.style.display = 'block';
+    });
+    options.addEventListener('mouseleave', () => {
+        options.style.display = 'none';
     });
 });
 
+// Çoklu ve tek seçim
 document.querySelectorAll('.dropdown-options div').forEach(option => {
     option.addEventListener('click', () => {
+        const box = option.parentElement.previousElementSibling;
         const tagsContainer = option.parentElement.nextElementSibling;
         const value = option.textContent;
 
-        const existingTag = [...tagsContainer.querySelectorAll('.tag')].find(tag => tag.dataset.value === value);
-        if (existingTag) {
-            existingTag.remove();
-            option.style.background = '';
-        } else {
+        if (box.classList.contains('single-choice')) {
+            tagsContainer.innerHTML = '';
+            option.parentElement.querySelectorAll('div').forEach(opt => opt.style.background = '');
             const tag = document.createElement('div');
             tag.className = 'tag';
             tag.dataset.value = value;
@@ -139,15 +158,33 @@ document.querySelectorAll('.dropdown-options div').forEach(option => {
             });
             tagsContainer.appendChild(tag);
             option.style.background = '#d0f0d0';
+        } else {
+            const existingTag = [...tagsContainer.querySelectorAll('.tag')].find(tag => tag.dataset.value === value);
+            if (existingTag) {
+                existingTag.remove();
+                option.style.background = '';
+            } else {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.dataset.value = value;
+                tag.innerHTML = `${value} <span>&times;</span>`;
+                tag.querySelector('span').addEventListener('click', () => {
+                    tag.remove();
+                    option.style.background = '';
+                });
+                tagsContainer.appendChild(tag);
+                option.style.background = '#d0f0d0';
+            }
         }
     });
 });
 
+// Form gönderme
 document.getElementById('creativeForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const data = {};
 
-    this.querySelectorAll('input, textarea, select').forEach(el => {
+    this.querySelectorAll('input, textarea').forEach(el => {
         data[el.name] = el.value;
     });
 
